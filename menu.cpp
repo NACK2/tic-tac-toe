@@ -23,7 +23,8 @@ void getInput() {
     std::cin >> input;
 
     if (tolower(input) == 'p') {
-        startGame();
+        std::cout << '\n';
+        gameExplain();
     }
     else {
         std::cout << "See you next time!\n";
