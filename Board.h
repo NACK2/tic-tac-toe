@@ -11,7 +11,8 @@ class Board
 		void printBoard();
 	
 	private:
-		std::vector<std::vector<std::string>> values {
+		// don't need a dynamic array (vector) as the size of 2d array will stay same
+		std::string values[3][3] = {
 		{"1", "2", "3"},
 		{"4", "5", "6"},
 		{"7", "8", "9"}
