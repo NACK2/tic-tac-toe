@@ -22,6 +22,7 @@ void startGame() {
 	Board board;
 	int pos = 0;
 
+	//test
 	// TODO: FIX RAND, the computer keeps generating the SAME sequence of rand numbers
 	int compPos = rand() % 9; // gives rand num between 0 and 8
 
