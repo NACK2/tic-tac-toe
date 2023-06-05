@@ -18,18 +18,22 @@ void gameExplain() {
 	startGame();
 }
 
+// TODO: 
+// 1) Ask player if they want to play again after finishing
+// 2) Ask who wants to go first
+// 3) TODO: When player is close to winning, computer should try to block player off
 void startGame() {
 	Board board;
 	int pos = 0;
 	srand(time(0));
 	int compPos = rand() % 9; // gives rand num between 0 and 8
-	// TODO: add a draw/tie when board is full but no winner exists
+	int numTurns = 0;
+	int winner = 0; // 0 = computer, 1 = player, 2 = tie
 
-	// keeps going until someone wins
-	while (!board.getIsGameOver()) {
+	while (true) {
 		std::cout << "\n\nPick a position: \n";
 		std::cin >> pos;
-		while (board.getValue(pos-1) != " ") {
+		while (board.getValue(pos-1) != " ") { // if player chooses a taken pos
 			std::cout << "ERROR: That position is already taken, try again!\n";
 			std::cout << "\n\nPick a position: \n";
 			std::cin >> pos;
@@ -37,22 +41,41 @@ void startGame() {
 		board.setValue(pos - 1, "X");
 		board.printBoard();
 
-		// keep looping until computer generates num that isn't taken
-		while (board.getValue(compPos) != " ") {
-			compPos = rand() % 9; // gives rand num between 0 and 8
+		checkWinnerExists(board);
+		if (board.getIsGameOver()) {
+			winner = 1;
+			break;
+		}
+
+		++numTurns;
+		if (numTurns == 5) { // max amt of turns possible, if we reached here, means there wasn't a winner
+			winner = 2;
+			break;
+		}
+
+		while (board.getValue(compPos) != " ") { // keep looping until computer generates num that isn't taken
+			compPos = rand() % 9;
 		}
 		std::cout << "\n\nComputer's turn!\n";
 		board.setValue(compPos, "O");
 		board.printBoard();
-		checkWinnerExists(board); // if winner exists, sets Board's isGameOver = true, causing loop to end
+
+		checkWinnerExists(board); 
+		if (board.getIsGameOver()) // don't need to do winner = 0 for computer winning, already set to 0 as default
+			break;
 	}
 
-	if (board.getIsGameOver()) {
-		std::cout << "winner exists";
+	switch (winner) {
+		case (1):
+			std::cout << "You Win!\n";
+			break;
+		case (2):
+			std::cout << "Tie!\n";
+			break;
+		default:
+			std::cout << "Computer Wins!\n";
+			break;
 	}
-	//else {
-	//	std::cout << "ran out of spots, no winner\n";
-	//}
 }
 
 void checkWinnerExists(Board &board) {
