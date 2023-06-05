@@ -21,8 +21,8 @@ void gameExplain() {
 void startGame() {
 	Board board;
 	int pos = 0;
+	srand(time(0));
 	int compPos = rand() % 9; // gives rand num between 0 and 8
-	// TODO: FIX RAND, the computer keeps generating the SAME sequence of rand numbers
 	// TODO: add a draw/tie when board is full but no winner exists
 
 	// keeps going until someone wins
