@@ -38,6 +38,10 @@ bool Board::getIsGameOver() {
 	return isGameOver;
 }
 
+void Board::setIsGameOver(bool val) {
+	isGameOver = val;
+}
+
 std::string Board::getValue(int num) {
 	return values[num];
 }

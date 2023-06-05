@@ -15,6 +15,9 @@ class Board
 		// returns member variable isGameOver
 		bool getIsGameOver();
 
+		// sets member variable isGameOver
+		void setIsGameOver(bool val);
+
 		// returns the num'th value within values array
 		std::string getValue(int num);
 

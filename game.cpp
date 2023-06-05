@@ -21,13 +21,11 @@ void gameExplain() {
 void startGame() {
 	Board board;
 	int pos = 0;
-
-	//test
-	// TODO: FIX RAND, the computer keeps generating the SAME sequence of rand numbers
 	int compPos = rand() % 9; // gives rand num between 0 and 8
+	// TODO: FIX RAND, the computer keeps generating the SAME sequence of rand numbers
+	// TODO: add a draw/tie when board is full but no winner exists
 
 	// keeps going until someone wins
-	// TODO: create condition so that getIsGameOver = true is possible
 	while (!board.getIsGameOver()) {
 		std::cout << "\n\nPick a position: \n";
 		std::cin >> pos;
@@ -46,5 +44,34 @@ void startGame() {
 		std::cout << "\n\nComputer's turn!\n";
 		board.setValue(compPos, "O");
 		board.printBoard();
+		checkWinnerExists(board); // if winner exists, sets Board's isGameOver = true, causing loop to end
+	}
+
+	if (board.getIsGameOver()) {
+		std::cout << "winner exists";
+	}
+	//else {
+	//	std::cout << "ran out of spots, no winner\n";
+	//}
+}
+
+void checkWinnerExists(Board &board) {
+	int i = 0;
+	int j = 0;
+	while (i < 9) {
+		if (board.getValue(i) == board.getValue(i + 1) && board.getValue(i + 1) == board.getValue(i + 2) && board.getValue(i) != " ") {
+			board.setIsGameOver(true);
+		}
+		else if (board.getValue(j) == board.getValue(j + 3) && board.getValue(j + 3) == board.getValue(j + 6) && board.getValue(j) != " ") {
+			board.setIsGameOver(true);
+		}
+		else if (board.getValue(0) == board.getValue(4) && board.getValue(4) == board.getValue(8) && board.getValue(0) != " ") {
+			board.setIsGameOver(true);
+		}
+		else if (board.getValue(2) == board.getValue(4) && board.getValue(4) == board.getValue(6) && board.getValue(2) != " ") {
+			board.setIsGameOver(true);
+		}
+		i += 3;
+		j += 1;
 	}
 }

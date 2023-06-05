@@ -9,4 +9,7 @@ void gameExplain();
 // start the game
 void startGame();
 
+// check if some has won (make sure to PASS BY REF to affect the actual board)
+void checkWinnerExists(Board &board);
+
 #endif GAME_H
